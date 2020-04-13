@@ -68,9 +68,13 @@ class VNDate {
             return VNDate(vnSolarDate, TimeZoneOffset)
         }
 
-        fun ofLocal(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
+        fun of(solarTime: LocalDateTime): VNDate {
             val localTimeZone = ZoneId.systemDefault()
-            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, localTimeZone)
+            return ofLocal(solarTime.year, solarTime.month, solarTime.dayOfMonth, solarTime.hour, solarTime.minute, solarTime.second, solarTime.nano, localTimeZone)
+        }
+
+        fun ofLocal(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int, zone: ZoneId): VNDate {
+            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, zone)
             val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
             return VNDate(vnSolarDate, TimeZoneOffset)
         }

@@ -77,7 +77,7 @@ internal class VNDateTest {
     }
 
     @Test
-    fun timezoneVN() {
+    fun ofVNTimezone() {
         // vietnamese timezone then expected the same date
         var d = VNDate.of(2017, Month.MAY, 21, 16, 59, 59, 0)
         Assertions.assertEquals(26, d.day)
@@ -90,10 +90,18 @@ internal class VNDateTest {
     }
 
     @Test
-    fun timezoneLocal() {
+    fun ofLocal() {
         // don't know if this prove something
         val expected = LocalDateTime.now()
-        val d = VNDate.ofLocal(expected.year, expected.month, expected.dayOfMonth, expected.hour, expected.minute, expected.second, expected.nano)
+        var d = VNDate.ofLocal(expected.year, expected.month, expected.dayOfMonth, expected.hour, expected.minute, expected.second, expected.nano, ZoneId.systemDefault())
+        var actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+        Assertions.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun ofLocalDateTime() {
+        val expected = LocalDateTime.now()
+        val d = VNDate.of(expected)
         val actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
         Assertions.assertEquals(expected, actual)
     }
