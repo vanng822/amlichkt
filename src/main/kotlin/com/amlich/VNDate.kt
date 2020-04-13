@@ -1,6 +1,7 @@
 package com.amlich
 
 import java.time.LocalDateTime
+import java.time.Month
 
 class VNDate {
     private var timeZoneOffset: Int = TimeZoneOffset
@@ -10,8 +11,8 @@ class VNDate {
     val day: Int
         get() = lunarDate.day
 
-    val month: Int
-        get() = lunarDate.month
+    val month: Month
+        get() = Month.of(lunarDate.month)
 
     val year: Int
         get() = lunarDate.year
@@ -45,6 +46,6 @@ class VNDate {
     }
 
     override fun toString(): String {
-        return "${padd(year)}-${padd(month)}-${padd(day)}"
+        return "${padd(year)}-${padd(month.value)}-${padd(day)}"
     }
 }

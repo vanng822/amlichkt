@@ -2,7 +2,9 @@ package com.amlich
 
 import org.junit.jupiter.api.*
 import java.time.LocalDateTime
+import java.time.Month
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Users")
@@ -46,7 +48,7 @@ internal class VNDateTest {
         val solarDate = LocalDateTime.parse("2014-09-16 03:04", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         val d = VNDate(solarDate, 7)
         Assertions.assertEquals(23, d.day)
-        Assertions.assertEquals(8, d.month)
+        Assertions.assertEquals(Month.AUGUST, d.month)
         Assertions.assertEquals(2014, d.year)
     }
 
@@ -55,7 +57,7 @@ internal class VNDateTest {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val d = VNDate(lunarDate, 7).solarTime()
         Assertions.assertEquals(16, d.dayOfMonth)
-        Assertions.assertEquals(9, d.month.value)
+        Assertions.assertEquals(Month.SEPTEMBER, d.month)
         Assertions.assertEquals(2014, d.year)
     }
 }
