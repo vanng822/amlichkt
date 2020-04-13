@@ -1,7 +1,6 @@
 package com.amlich
 
-import java.time.LocalDateTime
-import java.time.Month
+import java.time.*
 
 class VNDate {
     private var timeZoneOffset: Int = TimeZoneOffset
@@ -47,5 +46,14 @@ class VNDate {
 
     override fun toString(): String {
         return "${padd(year)}-${padd(month.value)}-${padd(day)}"
+    }
+
+    companion object {
+        fun of(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
+            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, ZoneId.of("UTC"))
+            val zone = ZoneId.of("Asia/Ho_Chi_Minh")
+            val vnSolarDate = solarDate.withZoneSameInstant(zone)
+            return VNDate(vnSolarDate.toLocalDateTime(), TimeZoneOffset)
+        }
     }
 }

@@ -60,4 +60,17 @@ internal class VNDateTest {
         Assertions.assertEquals(Month.SEPTEMBER, d.month)
         Assertions.assertEquals(2014, d.year)
     }
+
+    @Test
+    fun testTimeZone() {
+        var d = VNDate.of(2017, Month.MAY, 21, 16, 59, 59, 0)
+        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(Month.APRIL, d.month)
+        Assertions.assertEquals(2017, d.year)
+
+        d = VNDate.of(2017, Month.MAY, 21, 17, 0, 1, 0)
+        Assertions.assertEquals(27, d.day)
+        Assertions.assertEquals(Month.APRIL, d.month)
+        Assertions.assertEquals(2017, d.year)
+    }
 }
