@@ -1,7 +1,8 @@
 package com.amlich
 
 import org.junit.jupiter.api.*
-import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Users")
@@ -9,7 +10,7 @@ import java.time.LocalDateTime
 class AmlichTest {
     @Test
     fun testToday() {
-        val expected = LocalDateTime.now()
+        val expected = ZonedDateTime.now(ZoneId.of(VNTimeZoneName))
         val actual = today().solarTime()
         // unlucky if execute over the midnight
         Assertions.assertEquals(expected.dayOfMonth, actual.dayOfMonth)
