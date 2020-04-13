@@ -144,4 +144,22 @@ internal class VNDateTest {
         val d3 = VNDate.of(now3)
         Assertions.assertEquals(false, d.isAfter(d3))
     }
+
+    @Test
+    fun comparisonOperators() {
+        val now = LocalDateTime.now()
+        val d = VNDate.of(now)
+        val now2 = now.minusHours(1)
+        val before = VNDate.of(now2)
+        val now3 = now.plusHours(1)
+        val after = VNDate.of(now3)
+
+        Assertions.assertEquals(true, d == d)
+        Assertions.assertEquals(true, d >= d)
+
+        Assertions.assertEquals(false, d > after)
+        Assertions.assertEquals(false, d < before)
+        Assertions.assertEquals(true, after > before)
+        Assertions.assertEquals(true, after >= before)
+    }
 }

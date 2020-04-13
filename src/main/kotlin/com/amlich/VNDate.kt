@@ -63,6 +63,21 @@ class VNDate {
         return this.solarTime.isEqual(other.solarTime())
     }
 
+    operator fun compareTo(other: Any?): Int {
+        val o = other as VNDate
+        if (isEqual(o)) {
+            return 0
+        }
+        if (isAfter(o)) {
+            return 1
+        }
+        return -1
+    }
+
+    override operator fun equals(other: Any?): Boolean {
+        return isEqual(other as VNDate)
+    }
+
     override fun toString(): String {
         return "${padd(year)}-${padd(month.value)}-${padd(day)}"
     }
