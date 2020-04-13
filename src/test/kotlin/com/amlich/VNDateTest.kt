@@ -1,5 +1,6 @@
 package com.amlich
 
+import org.assertj.core.api.Assert
 import org.junit.jupiter.api.*
 import java.time.LocalDateTime
 import java.time.Month
@@ -104,5 +105,43 @@ internal class VNDateTest {
         val d = VNDate.of(expected)
         val actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
         Assertions.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun isEqual() {
+        val now = LocalDateTime.now()
+        val d = VNDate.of(now)
+        Assertions.assertEquals(true, d.isEqual(d))
+        val now2 = now.minusHours(1)
+        val d2 = VNDate.of(now2)
+        Assertions.assertEquals(false, d.isEqual(d2))
+    }
+
+    @Test
+    fun isBefore() {
+        val now = LocalDateTime.now()
+        val d = VNDate.of(now)
+        Assertions.assertEquals(false, d.isBefore(d))
+        val now2 = now.minusHours(1)
+        val d2 = VNDate.of(now2)
+        Assertions.assertEquals(false, d.isBefore(d2))
+
+        val now3 = now.plusHours(1)
+        val d3 = VNDate.of(now3)
+        Assertions.assertEquals(true, d.isBefore(d3))
+    }
+
+    @Test
+    fun isAfter() {
+        val now = LocalDateTime.now()
+        val d = VNDate.of(now)
+        Assertions.assertEquals(false, d.isAfter(d))
+        val now2 = now.minusHours(1)
+        val d2 = VNDate.of(now2)
+        Assertions.assertEquals(true, d.isAfter(d2))
+
+        val now3 = now.plusHours(1)
+        val d3 = VNDate.of(now3)
+        Assertions.assertEquals(false, d.isAfter(d3))
     }
 }

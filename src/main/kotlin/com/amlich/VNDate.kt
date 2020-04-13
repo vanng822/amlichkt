@@ -51,6 +51,18 @@ class VNDate {
         return solarTime
     }
 
+    fun isAfter(other: VNDate): Boolean {
+        return this.solarTime.isAfter(other.solarTime())
+    }
+
+    fun isBefore(other: VNDate): Boolean {
+        return this.solarTime.isBefore(other.solarTime())
+    }
+
+    fun isEqual(other: VNDate): Boolean {
+        return this.solarTime.isEqual(other.solarTime())
+    }
+
     override fun toString(): String {
         return "${padd(year)}-${padd(month.value)}-${padd(day)}"
     }
