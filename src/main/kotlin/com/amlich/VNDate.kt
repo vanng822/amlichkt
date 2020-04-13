@@ -18,7 +18,6 @@ class VNDate {
 
     constructor(timeZoneOffset: Int = TimeZoneOffset): this(ZonedDateTime.now(VNTimeZone), timeZoneOffset)
 
-    // TODO: make sure solarTime is in vietnamese timezone
     constructor(solarTime: ZonedDateTime, timeZoneOffset: Int = TimeZoneOffset) {
         this.timeZoneOffset = timeZoneOffset
         this.solarTime = fixTimezone(solarTime)
@@ -57,8 +56,21 @@ class VNDate {
     }
 
     companion object {
-        fun of(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
+        fun ofUTC(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
             val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, ZoneId.of("UTC"))
+            val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
+            return VNDate(vnSolarDate, TimeZoneOffset)
+        }
+
+        fun of(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
+            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, VNTimeZone)
+            val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
+            return VNDate(vnSolarDate, TimeZoneOffset)
+        }
+
+        fun ofLocal(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
+            val localTimeZone = ZoneId.systemDefault()
+            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, localTimeZone)
             val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
             return VNDate(vnSolarDate, TimeZoneOffset)
         }

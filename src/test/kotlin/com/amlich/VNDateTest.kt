@@ -3,6 +3,7 @@ package com.amlich
 import org.junit.jupiter.api.*
 import java.time.LocalDateTime
 import java.time.Month
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -62,15 +63,38 @@ internal class VNDateTest {
     }
 
     @Test
-    fun testTimeZone() {
-        var d = VNDate.of(2017, Month.MAY, 21, 16, 59, 59, 0)
+    fun timeZoneUTC() {
+        // UTC, hour 16 and 17 will shift the date
+        var d = VNDate.ofUTC(2017, Month.MAY, 21, 16, 59, 59, 0)
         Assertions.assertEquals(26, d.day)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
 
-        d = VNDate.of(2017, Month.MAY, 21, 17, 0, 1, 0)
+        d = VNDate.ofUTC(2017, Month.MAY, 21, 17, 0, 1, 0)
         Assertions.assertEquals(27, d.day)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
+    }
+
+    @Test
+    fun timezoneVN() {
+        // vietnamese timezone then expected the same date
+        var d = VNDate.of(2017, Month.MAY, 21, 16, 59, 59, 0)
+        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(Month.APRIL, d.month)
+        Assertions.assertEquals(2017, d.year)
+        d = VNDate.of(2017, Month.MAY, 21, 17, 0, 1, 0)
+        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(Month.APRIL, d.month)
+        Assertions.assertEquals(2017, d.year)
+    }
+
+    @Test
+    fun timezoneLocal() {
+        // don't know if this prove something
+        val expected = LocalDateTime.now()
+        val d = VNDate.ofLocal(expected.year, expected.month, expected.dayOfMonth, expected.hour, expected.minute, expected.second, expected.nano)
+        val actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+        Assertions.assertEquals(expected, actual)
     }
 }
