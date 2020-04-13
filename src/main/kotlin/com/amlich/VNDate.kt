@@ -63,12 +63,11 @@ class VNDate {
         return this.solarTime.isEqual(other.solarTime())
     }
 
-    operator fun compareTo(other: Any?): Int {
-        val o = other as VNDate
-        if (isEqual(o)) {
+    operator fun compareTo(other: VNDate): Int {
+        if (isEqual(other)) {
             return 0
         }
-        if (isAfter(o)) {
+        if (isAfter(other)) {
             return 1
         }
         return -1
