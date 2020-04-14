@@ -7,12 +7,13 @@ import java.time.ZoneId
 var TimeZoneOffset = 7
 const val VNTimeZoneName = "Asia/Ho_Chi_Minh"
 val VNTimeZone = ZoneId.of(VNTimeZoneName)
+val UTCTimeZone = ZoneId.of("UTC")
 
 fun today(): VNDate {
     return VNDate(TimeZoneOffset)
 }
 
-fun getMonthDates(year: Int, month: Month, zone: ZoneId = ZoneId.systemDefault()): List<VNDate> {
+fun getMonthDates(year: Int, month: Month, zone: ZoneId = UTCTimeZone): List<VNDate> {
     var dates: MutableList<VNDate> = mutableListOf()
 
     val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 1, zone)
@@ -28,7 +29,7 @@ fun getMonthDates(year: Int, month: Month, zone: ZoneId = ZoneId.systemDefault()
     return dates
 }
 
-fun getYearMonthDates(year: Int, zone: ZoneId = ZoneId.systemDefault()): Map<Month, List<VNDate>> {
+fun getYearMonthDates(year: Int, zone: ZoneId = UTCTimeZone): Map<Month, List<VNDate>> {
     val months: MutableMap<Month, List<VNDate>> = mutableMapOf()
     for (m in Months) {
         months.put(m, getMonthDates(year, m, zone = zone))
