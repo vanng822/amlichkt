@@ -2,10 +2,7 @@ package com.amlich
 
 import org.assertj.core.api.Assert
 import org.junit.jupiter.api.*
-import java.time.LocalDateTime
-import java.time.Month
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -161,5 +158,35 @@ internal class VNDateTest {
         Assertions.assertEquals(false, d < before)
         Assertions.assertEquals(true, after > before)
         Assertions.assertEquals(true, after >= before)
+    }
+
+    @Test
+    fun addDate() {
+        val lunarDate = LunarDate(2014, 8, 23, false)
+        val vnDate = VNDate(lunarDate, TimeZoneOffset)
+        val actual = vnDate.addDate(0, 1, 2)
+        Assertions.assertEquals(25, actual.day)
+        Assertions.assertEquals(Month.SEPTEMBER, actual.month)
+        Assertions.assertEquals(2014, actual.year)
+    }
+
+    @Test
+    fun plus() {
+        val lunarDate = LunarDate(2014, 8, 23, false)
+        val vnDate = VNDate(lunarDate, TimeZoneOffset)
+        val actual = vnDate.plus(period = Period.of(0, 0, 3))
+        Assertions.assertEquals(26, actual.day)
+        Assertions.assertEquals(Month.AUGUST, actual.month)
+        Assertions.assertEquals(2014, actual.year)
+    }
+
+    @Test
+    fun minus() {
+        val lunarDate = LunarDate(2014, 8, 23, false)
+        val vnDate = VNDate(lunarDate, TimeZoneOffset)
+        var actual = vnDate.minus(period = Period.of(0, 0, 3))
+        Assertions.assertEquals(20, actual.day)
+        Assertions.assertEquals(Month.AUGUST, actual.month)
+        Assertions.assertEquals(2014, actual.year)
     }
 }

@@ -51,6 +51,21 @@ class VNDate {
         return solarTime
     }
 
+    fun addDate(years: Int, months: Int, days: Int): VNDate {
+        val period = Period.of(years, months, days)
+        return plus(period)
+    }
+
+    fun plus(period: Period): VNDate {
+        val newSolarTime = this.solarTime.plus(period)
+        return VNDate(newSolarTime, TimeZoneOffset)
+    }
+
+    fun minus(period: Period): VNDate {
+        val newSolarTime = this.solarTime.minus(period)
+        return VNDate(newSolarTime, TimeZoneOffset)
+    }
+
     fun isAfter(other: VNDate): Boolean {
         return this.solarTime.isAfter(other.solarTime())
     }
