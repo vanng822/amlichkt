@@ -1,5 +1,7 @@
 package com.amlich
 
+import java.time.Month
+import java.time.Period
 import java.time.ZoneId
 
 var TimeZoneOffset = 7
@@ -9,3 +11,43 @@ val VNTimeZone = ZoneId.of(VNTimeZoneName)
 fun today(): VNDate {
     return VNDate(TimeZoneOffset)
 }
+
+fun getMonthDates(year: Int, month: Month, zone: ZoneId = ZoneId.systemDefault()): List<VNDate> {
+    var dates: MutableList<VNDate> = mutableListOf()
+
+    val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 1, zone)
+    dates.add(start)
+    for (i in 1..30) {
+        val d = start.plus(Period.of(0,0, i))
+        // next month
+        if (d.solarTime().month != month) {
+            break
+        }
+        dates.add(d)
+    }
+    return dates
+}
+
+fun getYearMonthDates(year: Int, zone: ZoneId = ZoneId.systemDefault()): Map<Month, List<VNDate>> {
+    val months: MutableMap<Month, List<VNDate>> = mutableMapOf()
+    for (m in Months) {
+        months.put(m, getMonthDates(year, m, zone = zone))
+    }
+    return months
+}
+
+
+val Months: List<Month> = listOf(
+    Month.JANUARY,
+    Month.FEBRUARY,
+    Month.MARCH,
+    Month.APRIL,
+    Month.MAY,
+    Month.JUNE,
+    Month.JULY,
+    Month.AUGUST,
+    Month.SEPTEMBER,
+    Month.OCTOBER,
+    Month.NOVEMBER,
+    Month.DECEMBER
+)
