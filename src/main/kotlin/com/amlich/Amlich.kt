@@ -16,7 +16,7 @@ fun today(): VNDate {
 fun getMonthDates(year: Int, month: Month, zone: ZoneId = UTCTimeZone): List<VNDate> {
     var dates: MutableList<VNDate> = mutableListOf()
 
-    val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 1, zone)
+    val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 0, zone)
     dates.add(start)
     for (i in 1..30) {
         val d = start.plus(Period.of(0,0, i))
