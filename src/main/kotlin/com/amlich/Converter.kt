@@ -3,8 +3,8 @@ package com.amlich
 import kotlin.math.PI
 import kotlin.math.sin
 
-data class SolarDate(var year: Int, var month: Int, var day: Int)
-data class LunarDate(var year: Int, var month: Int, var day: Int, var leap: Boolean)
+data class SolarDate(val year: Int, val month: Int, val day: Int)
+data class LunarDate(val year: Int, val month: Int, val day: Int, val leap: Boolean)
 
 fun INT(number: Number): Int {
     return number.toInt()
