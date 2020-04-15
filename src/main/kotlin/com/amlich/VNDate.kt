@@ -27,8 +27,7 @@ class VNDate {
     constructor(lunarDate: LunarDate, timeZoneOffset: Int = TimeZoneOffset) {
         this.timeZoneOffset = timeZoneOffset
         val solarDate = lunar2solar(lunarDate.year, lunarDate.month, lunarDate.day, lunarDate.leap.toInt(), timeZoneOffset)
-        this.solarTime = ZonedDateTime.of(solarDate.year, solarDate.month, solarDate.day, 12, 12, 0, 0, ZoneId.of(
-            VNTimeZoneName))
+        this.solarTime = ZonedDateTime.of(solarDate.year, solarDate.month, solarDate.day, 12, 0, 0, 0, VNTimeZone)
         this.lunarDate = lunarDate
     }
 
