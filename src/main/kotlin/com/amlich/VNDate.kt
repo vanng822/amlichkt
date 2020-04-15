@@ -39,8 +39,8 @@ class VNDate {
         return solarTime
     }
 
-    fun date(): Triple<Int, Int, Int> {
-        return Triple(lunarDate.year, lunarDate.month, lunarDate.day)
+    fun date(): Triple<Int, Month, Int> {
+        return Triple(lunarDate.year, Month.of(lunarDate.month), lunarDate.day)
     }
 
     fun lunarDate(): LunarDate {

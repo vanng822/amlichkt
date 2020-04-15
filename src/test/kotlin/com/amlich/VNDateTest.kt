@@ -22,7 +22,7 @@ internal class VNDateTest {
     fun date() {
         val d = VNDate(LunarDate(2014, 8, 23, false), 7)
         val actual = d.date()
-        val expected = Triple<Int, Int, Int>(2014, 8, 23)
+        val expected = Triple<Int, Month, Int>(2014, Month.of(8), 23)
         Assertions.assertEquals(expected, actual)
     }
 
