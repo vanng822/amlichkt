@@ -97,15 +97,11 @@ class VNDate {
 
     companion object {
         fun ofUTC(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
-            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, ZoneId.of("UTC"))
-            val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
-            return VNDate(vnSolarDate, TimeZoneOffset)
+            return ofLocal(year, month, day, hour, minute, second, nanoSecond, UTCTimeZone)
         }
 
         fun of(year: Int, month: Month, day: Int, hour: Int, minute: Int, second: Int, nanoSecond: Int): VNDate {
-            val solarDate = ZonedDateTime.of(year, month.value, day, hour, minute, second, nanoSecond, VNTimeZone)
-            val vnSolarDate = solarDate.withZoneSameInstant(VNTimeZone)
-            return VNDate(vnSolarDate, TimeZoneOffset)
+            return ofLocal(year, month, day, hour, minute, second, nanoSecond, VNTimeZone)
         }
 
         fun of(solarTime: LocalDateTime): VNDate {
