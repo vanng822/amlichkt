@@ -55,12 +55,12 @@ class VNDate {
         return plus(period)
     }
 
-    fun plus(period: Period): VNDate {
+    operator fun plus(period: Period): VNDate {
         val newSolarTime = this.solarTime.plus(period)
         return VNDate(newSolarTime, TimeZoneOffset)
     }
 
-    fun minus(period: Period): VNDate {
+    operator fun minus(period: Period): VNDate {
         val newSolarTime = this.solarTime.minus(period)
         return VNDate(newSolarTime, TimeZoneOffset)
     }

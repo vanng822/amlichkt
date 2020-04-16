@@ -174,7 +174,13 @@ internal class VNDateTest {
     fun plus() {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val vnDate = VNDate(lunarDate, TimeZoneOffset)
-        val actual = vnDate.plus(period = Period.of(0, 0, 3))
+        var actual = vnDate.plus(period = Period.of(0, 0, 3))
+        Assertions.assertEquals(26, actual.day)
+        Assertions.assertEquals(Month.AUGUST, actual.month)
+        Assertions.assertEquals(2014, actual.year)
+
+        // Operator
+        actual = vnDate + Period.of(0, 0, 3)
         Assertions.assertEquals(26, actual.day)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
@@ -185,6 +191,12 @@ internal class VNDateTest {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val vnDate = VNDate(lunarDate, TimeZoneOffset)
         var actual = vnDate.minus(period = Period.of(0, 0, 3))
+        Assertions.assertEquals(20, actual.day)
+        Assertions.assertEquals(Month.AUGUST, actual.month)
+        Assertions.assertEquals(2014, actual.year)
+
+        // operator
+        actual = vnDate - Period.of(0, 0, 3)
         Assertions.assertEquals(20, actual.day)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
