@@ -9,7 +9,7 @@ internal class ConverterTest {
 
     @Test
     fun solar2lunar() {
-        val result = solar2lunar(2014, 9, 23, 0)
+        val result = solar2lunar(2014, 9, 23, 7)
         Assertions.assertEquals(30, result.day)
         Assertions.assertEquals(8, result.month)
         Assertions.assertEquals(2014, result.year)
@@ -18,10 +18,20 @@ internal class ConverterTest {
 
     @Test
     fun lunar2solar() {
-        val result = lunar2solar(2014, 8, 30, 0, 0)
+        val result = lunar2solar(2014, 8, 30, 0, 7)
         Assertions.assertEquals(23, result.day)
         Assertions.assertEquals(9, result.month)
         Assertions.assertEquals(2014, result.year)
+    }
+
+    @Test
+    fun solar2lunar20250724() {
+        // this failed in pg-lunardate; the key is timeZoneOffset=7
+        val result = solar2lunar(2025, 7, 24, 7)
+        Assertions.assertEquals(30, result.day)
+        Assertions.assertEquals(6, result.month)
+        Assertions.assertEquals(2025, result.year)
+        Assertions.assertEquals(false,result.leap)
     }
 
     @Test
