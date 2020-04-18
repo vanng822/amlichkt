@@ -38,7 +38,7 @@ fun getYearMonthDates(year: Int, zone: ZoneId = UTCTimeZone): Map<Month, List<VN
 }
 
 
-val Months: List<Month> = listOf(
+val Months: Set<Month> = setOf(
     Month.JANUARY,
     Month.FEBRUARY,
     Month.MARCH,

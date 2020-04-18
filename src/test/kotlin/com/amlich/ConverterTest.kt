@@ -18,7 +18,7 @@ internal class ConverterTest {
 
     @Test
     fun lunar2solar() {
-        val result = lunar2solar(2014, 8, 30, 0, 7)
+        val result = lunar2solar(2014, 8, 30, false, 7)
         Assertions.assertEquals(23, result.day)
         Assertions.assertEquals(9, result.month)
         Assertions.assertEquals(2014, result.year)
@@ -32,6 +32,12 @@ internal class ConverterTest {
         Assertions.assertEquals(6, result.month)
         Assertions.assertEquals(2025, result.year)
         Assertions.assertEquals(false,result.leap)
+
+        val result2 = solar2lunar(2025, 8, 20, 7)
+        Assertions.assertEquals(27, result2.day)
+        Assertions.assertEquals(6, result2.month)
+        Assertions.assertEquals(2025, result2.year)
+        Assertions.assertEquals(true,result2.leap)
     }
 
     @Test
@@ -51,12 +57,12 @@ internal class ConverterTest {
 
     @Test
     fun lunar2SolarLeapMonth() {
-        var solarDate = lunar2solar(2006, 7, 20, 7, 7)
+        var solarDate = lunar2solar(2006, 7, 20, true, 7)
         Assertions.assertEquals(12, solarDate.day)
         Assertions.assertEquals(9, solarDate.month)
         Assertions.assertEquals(2006, solarDate.year)
 
-        solarDate = lunar2solar(2012, 4, 23, 4, 7)
+        solarDate = lunar2solar(2012, 4, 23, true, 7)
         Assertions.assertEquals(12, solarDate.day)
         Assertions.assertEquals(6, solarDate.month)
         Assertions.assertEquals(2012, solarDate.year)

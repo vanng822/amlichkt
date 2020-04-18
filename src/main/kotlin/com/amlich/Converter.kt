@@ -4,7 +4,13 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 data class SolarDate(val year: Int, val month: Int, val day: Int)
-data class LunarDate(val year: Int, val month: Int, val day: Int, val leap: Boolean)
+
+data class LunarDate(val year: Int, val month: Int, val day: Int, val leap: Boolean) {
+    override operator fun equals(other: Any?): Boolean {
+        val o = other as LunarDate
+        return o.year == year && o.month == month && o.day == day && o.leap == leap
+    }
+}
 
 fun INT(number: Number): Int {
     return number.toInt()
@@ -218,7 +224,7 @@ fun solar2lunar(yyyy: Int, mm: Int, dd: Int, timeZoneOffset: Int): LunarDate {
 }
 
 
-fun lunar2solar(lunarYear: Int, lunarMonth: Int, lunarDay: Int, lunarLeap: Int, timeZoneOffset: Int): SolarDate {
+fun lunar2solar(lunarYear: Int, lunarMonth: Int, lunarDay: Int, lunarLeap: Boolean, timeZoneOffset: Int): SolarDate {
     var k: Int
     var a11: Int
     var b11: Int
@@ -245,9 +251,9 @@ fun lunar2solar(lunarYear: Int, lunarMonth: Int, lunarDay: Int, lunarLeap: Int, 
         if (leapMonth < 0) {
             leapMonth += 12
         }
-        if (lunarLeap != 0 && lunarMonth != lunarLeap) {
+        if (lunarLeap && lunarMonth != leapMonth) {
             return SolarDate(0, 0, 0)
-        } else if (lunarLeap != 0 || off >= leapOff) {
+        } else if (lunarLeap || off >= leapOff) {
             off += 1
         }
     }
