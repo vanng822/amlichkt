@@ -1,5 +1,6 @@
 package com.amlich
 
+import java.lang.Exception
 import java.time.*
 
 class VNDate {
@@ -29,6 +30,9 @@ class VNDate {
         val solarDate = lunar2solar(lunarDate.year, lunarDate.month, lunarDate.day, lunarDate.leap, timeZoneOffset)
         this.solarTime = ZonedDateTime.of(solarDate.year, solarDate.month, solarDate.day, 12, 0, 0, 0, VNTimeZone)
         this.lunarDate = lunarDate
+        if (!isValid()) {
+            throw DateTimeException("Invalid date '${lunarDate.toString()}'")
+        }
     }
 
     protected fun fixTimezone(solarTime: ZonedDateTime): ZonedDateTime {
@@ -36,6 +40,11 @@ class VNDate {
             return solarTime.withZoneSameInstant(VNTimeZone)
         }
         return solarTime
+    }
+
+    fun isValid(): Boolean {
+        val reversedDate = solar2lunar(solarTime.year, solarTime.month.value, solarTime.dayOfMonth, TimeZoneOffset)
+        return lunarDate == reversedDate
     }
 
     fun date(): Triple<Int, Month, Int> {

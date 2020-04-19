@@ -11,6 +11,13 @@ import java.time.format.DateTimeFormatter
 internal class VNDateTest {
 
     @Test
+    fun invalidDate() {
+        Assertions.assertThrows(DateTimeException::class.java, fun() {
+            VNDate(LunarDate(2025, 6, 30, true), 7)
+        })
+    }
+
+    @Test
     fun testToString() {
         val d = VNDate(LunarDate(2014, 8, 23, false), 7)
         val actual = d.toString()
