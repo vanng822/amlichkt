@@ -34,6 +34,16 @@ internal class VNDateTest {
     }
 
     @Test
+    fun defaultContructor() {
+        val expected = ZonedDateTime.now(VNTimeZone)
+        val d = VNDate()
+        val actual = d.solarTime()
+        Assertions.assertEquals(expected.dayOfMonth, actual.dayOfMonth)
+        Assertions.assertEquals(expected.month, actual.month)
+        Assertions.assertEquals(expected.year, actual.year)
+    }
+
+    @Test
     fun lunardate() {
         val expected = LunarDate(2014, 8, 23, false)
         val d = VNDate(expected, 7)
