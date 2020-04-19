@@ -13,7 +13,7 @@ fun today(): VNDate {
     return VNDate(TimeZoneOffset)
 }
 
-fun getMonthDates(year: Int, month: Month, zone: ZoneId = UTCTimeZone): List<VNDate> {
+fun getMonthDates(year: Int, month: Month, zone: ZoneId = VNTimeZone): List<VNDate> {
     var dates: MutableList<VNDate> = mutableListOf()
 
     val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 0, zone)
@@ -29,7 +29,7 @@ fun getMonthDates(year: Int, month: Month, zone: ZoneId = UTCTimeZone): List<VND
     return dates
 }
 
-fun getYearMonthDates(year: Int, zone: ZoneId = UTCTimeZone): Map<Month, List<VNDate>> {
+fun getYearMonthDates(year: Int, zone: ZoneId = VNTimeZone): Map<Month, List<VNDate>> {
     val months: MutableMap<Month, List<VNDate>> = mutableMapOf()
     for (m in Months) {
         months.put(m, getMonthDates(year, m, zone = zone))
