@@ -41,4 +41,11 @@ class AmlichTest {
     fun getYearMonthDates() {
         Assertions.assertEquals( 12, getYearMonthDates(2016).count())
     }
+
+    @Test
+    fun setTimeZoneOffset() {
+        Assertions.assertEquals(7, TimeZoneOffset)
+        TimeZoneOffset = 6
+        Assertions.assertEquals(6, TimeZoneOffset)
+    }
 }

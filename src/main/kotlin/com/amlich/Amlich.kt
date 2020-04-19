@@ -4,7 +4,7 @@ import java.time.Month
 import java.time.Period
 import java.time.ZoneId
 
-var TimeZoneOffset = 7
+var TimeZoneOffset:Int = 7
 const val VNTimeZoneName = "Asia/Ho_Chi_Minh"
 val VNTimeZone = ZoneId.of(VNTimeZoneName)
 val UTCTimeZone = ZoneId.of("UTC")
