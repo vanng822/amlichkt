@@ -38,8 +38,59 @@ class AmlichTest {
     }
 
     @Test
-    fun getYearMonthDates() {
-        Assertions.assertEquals( 12, getYearMonthDates(2016).count())
+    fun getYearMonthDates2020() {
+        val monthDates = getYearMonthDates(2020)
+        // expected 12 months
+        Assertions.assertEquals( 12, monthDates.count())
+
+        // Number of dates in each month
+        val expectedNumberDays = mapOf<Month,Int>(
+            Month.JANUARY to 31,
+            Month.FEBRUARY to 29,
+            Month.MARCH to 31,
+            Month.APRIL to 30,
+            Month.MAY to 31,
+            Month.JUNE to 30,
+            Month.JULY to 31,
+            Month.AUGUST to 31,
+            Month.SEPTEMBER to 30,
+            Month.OCTOBER to 31,
+            Month.NOVEMBER to 30,
+            Month.DECEMBER to 31
+        )
+
+        for ((month, expected) in expectedNumberDays) {
+            val actual:List<VNDate> = monthDates[month]!!
+            Assertions.assertEquals(expected, actual.count())
+        }
+    }
+
+    @Test
+    fun getYearMonthDates2021() {
+        val monthDates = getYearMonthDates(2021)
+        // expected 12 months
+        Assertions.assertEquals( 12, monthDates.count())
+
+        // Number of dates in each month
+        val expectedNumberDays = mapOf<Month,Int>(
+            Month.JANUARY to 31,
+            Month.FEBRUARY to 28,
+            Month.MARCH to 31,
+            Month.APRIL to 30,
+            Month.MAY to 31,
+            Month.JUNE to 30,
+            Month.JULY to 31,
+            Month.AUGUST to 31,
+            Month.SEPTEMBER to 30,
+            Month.OCTOBER to 31,
+            Month.NOVEMBER to 30,
+            Month.DECEMBER to 31
+        )
+
+        for ((month, expected) in expectedNumberDays) {
+            val actual:List<VNDate> = monthDates[month]!!
+            Assertions.assertEquals(expected, actual.count())
+        }
     }
 
     @Test

@@ -18,7 +18,13 @@ fun getMonthDates(year: Int, month: Month, zone: ZoneId = VNTimeZone): List<VNDa
 
     val start = VNDate.ofLocal(year, month, 1, 12, 0, 0, 0, zone)
     dates.add(start)
-    for (i in 1..30) {
+    // Minimum is 28 days so with 27 we reach 28
+    for (i in 1..27) {
+        val d = start.plus(Period.ofDays(i))
+        dates.add(d)
+    }
+    // From date 29 to 31 we need to check if we go over to next month
+    for (i in 28..30) {
         val d = start.plus(Period.ofDays(i))
         // next month
         if (d.solarDateTime().month != month) {
