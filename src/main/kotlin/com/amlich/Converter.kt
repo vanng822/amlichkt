@@ -77,7 +77,7 @@ fun newMoon(ak: Int): Double {
     var C1: Double
     var deltat: Double
 
-    val k = ak.toDouble()
+    val k = DOUBLE(ak)
     T = k / 1236.85 // Time in Julian centuries from 1900 January 0.5
     T2 = T * T
     T3 = T2 * T
