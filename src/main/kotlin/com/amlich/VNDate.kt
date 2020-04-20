@@ -7,7 +7,7 @@ class VNDate {
     private var solarDateTime: ZonedDateTime
     private var lunarDate: LunarDate
 
-    val day: Int
+    val dayOfMonth: Int
         get() = lunarDate.day
 
     val month: Month
@@ -100,7 +100,7 @@ class VNDate {
     }
 
     override fun toString(): String {
-        return "${padd(year)}-${padd(month.value)}-${padd(day)}"
+        return "${padd(year)}-${padd(month.value)}-${padd(dayOfMonth)}"
     }
 
     companion object {

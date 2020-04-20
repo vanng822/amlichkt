@@ -28,11 +28,11 @@ class AmlichTest {
         val dates = getMonthDates(2016, Month.NOVEMBER)
         Assertions.assertEquals(30, dates.count())
         // first day
-        Assertions.assertEquals(2, dates[0].day)
+        Assertions.assertEquals(2, dates[0].dayOfMonth)
         Assertions.assertEquals(Month.OCTOBER, dates[0].month)
         Assertions.assertEquals(2016, dates[0].year)
         // last day
-        Assertions.assertEquals(2, dates[29].day)
+        Assertions.assertEquals(2, dates[29].dayOfMonth)
         Assertions.assertEquals(Month.NOVEMBER, dates[29].month)
         Assertions.assertEquals(2016, dates[29].year)
     }

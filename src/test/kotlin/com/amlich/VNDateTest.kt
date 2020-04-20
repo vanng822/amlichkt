@@ -62,7 +62,7 @@ internal class VNDateTest {
     fun fromSolarTime() {
         val solarDate = LocalDateTime.parse("2014-09-16 03:04", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         val d = VNDate(solarDate.atZone(VNTimeZone), 7)
-        Assertions.assertEquals(23, d.day)
+        Assertions.assertEquals(23, d.dayOfMonth)
         Assertions.assertEquals(Month.AUGUST, d.month)
         Assertions.assertEquals(2014, d.year)
     }
@@ -80,12 +80,12 @@ internal class VNDateTest {
     fun timeZoneUTC() {
         // UTC, hour 16 and 17 will shift the date
         var d = VNDate.ofUTC(2017, Month.MAY, 21, 16, 59, 59, 0)
-        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(26, d.dayOfMonth)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
 
         d = VNDate.ofUTC(2017, Month.MAY, 21, 17, 0, 1, 0)
-        Assertions.assertEquals(27, d.day)
+        Assertions.assertEquals(27, d.dayOfMonth)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
     }
@@ -94,11 +94,11 @@ internal class VNDateTest {
     fun ofVNTimezone() {
         // vietnamese timezone then expected the same date
         var d = VNDate.of(2017, Month.MAY, 21, 16, 59, 59, 0)
-        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(26, d.dayOfMonth)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
         d = VNDate.of(2017, Month.MAY, 21, 17, 0, 1, 0)
-        Assertions.assertEquals(26, d.day)
+        Assertions.assertEquals(26, d.dayOfMonth)
         Assertions.assertEquals(Month.APRIL, d.month)
         Assertions.assertEquals(2017, d.year)
     }
@@ -181,7 +181,7 @@ internal class VNDateTest {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val vnDate = VNDate(lunarDate, TimeZoneOffset)
         val actual = vnDate.addDate(0, 1, 2)
-        Assertions.assertEquals(25, actual.day)
+        Assertions.assertEquals(25, actual.dayOfMonth)
         Assertions.assertEquals(Month.SEPTEMBER, actual.month)
         Assertions.assertEquals(2014, actual.year)
     }
@@ -191,13 +191,13 @@ internal class VNDateTest {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val vnDate = VNDate(lunarDate, TimeZoneOffset)
         var actual = vnDate.plus(period = Period.of(0, 0, 3))
-        Assertions.assertEquals(26, actual.day)
+        Assertions.assertEquals(26, actual.dayOfMonth)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
 
         // Operator
         actual = vnDate + Period.of(0, 0, 3)
-        Assertions.assertEquals(26, actual.day)
+        Assertions.assertEquals(26, actual.dayOfMonth)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
     }
@@ -207,13 +207,13 @@ internal class VNDateTest {
         val lunarDate = LunarDate(2014, 8, 23, false)
         val vnDate = VNDate(lunarDate, TimeZoneOffset)
         var actual = vnDate.minus(period = Period.of(0, 0, 3))
-        Assertions.assertEquals(20, actual.day)
+        Assertions.assertEquals(20, actual.dayOfMonth)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
 
         // operator
         actual = vnDate - Period.of(0, 0, 3)
-        Assertions.assertEquals(20, actual.day)
+        Assertions.assertEquals(20, actual.dayOfMonth)
         Assertions.assertEquals(Month.AUGUST, actual.month)
         Assertions.assertEquals(2014, actual.year)
     }
