@@ -1,6 +1,5 @@
 package com.amlich
 
-import org.assertj.core.api.Assert
 import org.junit.jupiter.api.*
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -37,7 +36,7 @@ internal class VNDateTest {
     fun defaultContructor() {
         val expected = ZonedDateTime.now(VNTimeZone)
         val d = VNDate()
-        val actual = d.solarTime()
+        val actual = d.solarDateTime()
         Assertions.assertEquals(expected.dayOfMonth, actual.dayOfMonth)
         Assertions.assertEquals(expected.month, actual.month)
         Assertions.assertEquals(expected.year, actual.year)
@@ -55,7 +54,7 @@ internal class VNDateTest {
     fun solarTime() {
         val expected = ZonedDateTime.now(VNTimeZone)
         val d = VNDate(expected, 7)
-        val actual = d.solarTime()
+        val actual = d.solarDateTime()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -71,7 +70,7 @@ internal class VNDateTest {
     @Test
     fun fromLunarTime() {
         val lunarDate = LunarDate(2014, 8, 23, false)
-        val d = VNDate(lunarDate, 7).solarTime()
+        val d = VNDate(lunarDate, 7).solarDateTime()
         Assertions.assertEquals(16, d.dayOfMonth)
         Assertions.assertEquals(Month.SEPTEMBER, d.month)
         Assertions.assertEquals(2014, d.year)
@@ -109,7 +108,7 @@ internal class VNDateTest {
         // don't know if this prove something
         val expected = LocalDateTime.now()
         var d = VNDate.ofLocal(expected.year, expected.month, expected.dayOfMonth, expected.hour, expected.minute, expected.second, expected.nano, ZoneId.systemDefault())
-        var actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+        var actual = d.solarDateTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -117,7 +116,7 @@ internal class VNDateTest {
     fun ofLocalDateTime() {
         val expected = LocalDateTime.now()
         val d = VNDate.of(expected)
-        val actual = d.solarTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+        val actual = d.solarDateTime().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
         Assertions.assertEquals(expected, actual)
     }
 

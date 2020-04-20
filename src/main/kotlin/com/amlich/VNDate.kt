@@ -1,11 +1,10 @@
 package com.amlich
 
-import java.lang.Exception
 import java.time.*
 
 class VNDate {
     private var timeZoneOffset: Int = TimeZoneOffset
-    private var solarTime: ZonedDateTime
+    private var solarDateTime: ZonedDateTime
     private var lunarDate: LunarDate
 
     val day: Int
@@ -21,14 +20,14 @@ class VNDate {
 
     constructor(solarTime: ZonedDateTime, timeZoneOffset: Int = TimeZoneOffset) {
         this.timeZoneOffset = timeZoneOffset
-        this.solarTime = fixTimezone(solarTime)
-        this.lunarDate = solar2lunar(this.solarTime.year, this.solarTime.month.value, this.solarTime.dayOfMonth, timeZoneOffset)
+        this.solarDateTime = fixTimezone(solarTime)
+        this.lunarDate = solar2lunar(this.solarDateTime.year, this.solarDateTime.month.value, this.solarDateTime.dayOfMonth, timeZoneOffset)
     }
 
     constructor(lunarDate: LunarDate, timeZoneOffset: Int = TimeZoneOffset) {
         this.timeZoneOffset = timeZoneOffset
         val solarDate = lunar2solar(lunarDate.year, lunarDate.month, lunarDate.day, lunarDate.leap, timeZoneOffset)
-        this.solarTime = ZonedDateTime.of(solarDate.year, solarDate.month, solarDate.day, 12, 0, 0, 0, VNTimeZone)
+        this.solarDateTime = ZonedDateTime.of(solarDate.year, solarDate.month, solarDate.day, 12, 0, 0, 0, VNTimeZone)
         this.lunarDate = lunarDate
         if (!isValid()) {
             throw DateTimeException("Invalid date '${lunarDate.toString()}'")
@@ -43,7 +42,7 @@ class VNDate {
     }
 
     fun isValid(): Boolean {
-        val reversedDate = solar2lunar(solarTime.year, solarTime.month.value, solarTime.dayOfMonth, TimeZoneOffset)
+        val reversedDate = solar2lunar(solarDateTime.year, solarDateTime.month.value, solarDateTime.dayOfMonth, TimeZoneOffset)
         return lunarDate == reversedDate
     }
 
@@ -55,8 +54,8 @@ class VNDate {
         return lunarDate
     }
 
-    fun solarTime(): ZonedDateTime {
-        return solarTime
+    fun solarDateTime(): ZonedDateTime {
+        return solarDateTime
     }
 
     fun addDate(years: Int, months: Int, days: Int): VNDate {
@@ -65,25 +64,25 @@ class VNDate {
     }
 
     operator fun plus(period: Period): VNDate {
-        val newSolarTime = this.solarTime.plus(period)
+        val newSolarTime = this.solarDateTime.plus(period)
         return VNDate(newSolarTime, TimeZoneOffset)
     }
 
     operator fun minus(period: Period): VNDate {
-        val newSolarTime = this.solarTime.minus(period)
+        val newSolarTime = this.solarDateTime.minus(period)
         return VNDate(newSolarTime, TimeZoneOffset)
     }
 
     fun isAfter(other: VNDate): Boolean {
-        return this.solarTime.isAfter(other.solarTime())
+        return this.solarDateTime.isAfter(other.solarDateTime())
     }
 
     fun isBefore(other: VNDate): Boolean {
-        return this.solarTime.isBefore(other.solarTime())
+        return this.solarDateTime.isBefore(other.solarDateTime())
     }
 
     fun isEqual(other: VNDate): Boolean {
-        return this.solarTime.isEqual(other.solarTime())
+        return this.solarDateTime.isEqual(other.solarDateTime())
     }
 
     operator fun compareTo(other: VNDate): Int {

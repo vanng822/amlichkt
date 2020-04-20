@@ -12,7 +12,7 @@ class AmlichTest {
     @Test
     fun testToday() {
         val expected = ZonedDateTime.now(ZoneId.of(VNTimeZoneName))
-        val actual = today().solarTime()
+        val actual = today().solarDateTime()
         // unlucky if execute over the midnight
         Assertions.assertEquals(expected.dayOfMonth, actual.dayOfMonth)
         Assertions.assertEquals(expected.month, actual.month)
