@@ -100,7 +100,7 @@ class VNDate {
     }
 
     override fun toString(): String {
-        return "${padd(year)}-${padd(month.value)}-${padd(dayOfMonth)}"
+        return "${year}-${padd(month.value)}-${padd(dayOfMonth)}"
     }
 
     companion object {
