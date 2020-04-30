@@ -2,7 +2,6 @@ package com.amlich
 
 import org.junit.jupiter.api.*
 import java.time.Month
-import java.time.ZonedDateTime
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Validate")
@@ -39,5 +38,15 @@ internal class CalendarTest {
         c.previousDate()
         Assertions.assertEquals(Month.FEBRUARY, c.solarDateTime.month)
         Assertions.assertEquals(29, c.solarDateTime.dayOfMonth)
+    }
+
+    @Test
+    fun testDefault() {
+        // not cover over midnight
+        val d = today()
+        val c = VNCalendar()
+        Assertions.assertEquals(d.month, c.month)
+        Assertions.assertEquals(d.dayOfMonth, c.dayOfMonth)
+        Assertions.assertEquals(d.year, c.year)
     }
 }
