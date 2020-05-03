@@ -3,15 +3,15 @@ package com.amlich
 import kotlin.math.PI
 import kotlin.math.sin
 
-fun INT(number: Number): Int {
+internal fun INT(number: Number): Int {
     return number.toInt()
 }
 
-fun DOUBLE(i: Int): Double {
+internal fun DOUBLE(i: Int): Double {
     return i.toDouble()
 }
 
-fun jdFromDate(dd: Int, mm: Int, yyyy: Int): Int {
+internal fun jdFromDate(dd: Int, mm: Int, yyyy: Int): Int {
     var a: Int
     var y: Int
     var m: Int
@@ -26,7 +26,7 @@ fun jdFromDate(dd: Int, mm: Int, yyyy: Int): Int {
     return jd
 }
 
-fun jdToDate(jd: Int): SolarDate {
+internal fun jdToDate(jd: Int): SolarDate {
     var a: Int
     var b: Int
     var c: Int
@@ -56,7 +56,7 @@ fun jdToDate(jd: Int): SolarDate {
     return SolarDate(year, month, day)
 }
 
-fun newMoon(ak: Int): Double {
+internal fun newMoon(ak: Int): Double {
     var T: Double
     var T2: Double
     var T3: Double
@@ -94,8 +94,7 @@ fun newMoon(ak: Int): Double {
     return Jd1 + C1 - deltat
 }
 
-
-fun sunLongitude(jdn: Double): Double {
+internal fun sunLongitude(jdn: Double): Double {
     var T: Double
     var T2: Double
     var dr: Double
@@ -117,17 +116,15 @@ fun sunLongitude(jdn: Double): Double {
     return L
 }
 
-fun getSunLongitude(jd: Int, timeZoneOffset: Int): Int {
+internal fun getSunLongitude(jd: Int, timeZoneOffset: Int): Int {
     return INT(sunLongitude(jd - 0.5 - timeZoneOffset / 24.0) / PI * 6)
 }
 
-
-fun getNewMoonDay(k: Int, timeZoneOffset: Int): Int {
+internal fun getNewMoonDay(k: Int, timeZoneOffset: Int): Int {
     return INT(newMoon(k) + 0.5 + DOUBLE(timeZoneOffset) / 24)
 }
 
-
-fun getLunarMonth11(yyyy: Int, timeZoneOffset: Int): Int {
+internal fun getLunarMonth11(yyyy: Int, timeZoneOffset: Int): Int {
     var k: Int
     var off: Int
     var nm: Int
@@ -143,7 +140,7 @@ fun getLunarMonth11(yyyy: Int, timeZoneOffset: Int): Int {
     return nm
 }
 
-fun getLeapMonthOffset(a11: Int, timeZoneOffset: Int): Int {
+internal fun getLeapMonthOffset(a11: Int, timeZoneOffset: Int): Int {
     var k: Int
     var last: Int
     var arc: Int
