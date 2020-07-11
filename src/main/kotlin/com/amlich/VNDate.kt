@@ -86,13 +86,11 @@ class VNDate {
     }
 
     operator fun compareTo(other: VNDate): Int {
-        if (isEqual(other)) {
-            return 0
+        return when {
+            isEqual(other) -> 0
+            isAfter(other) -> 1
+            else -> -1
         }
-        if (isAfter(other)) {
-            return 1
-        }
-        return -1
     }
 
     override operator fun equals(other: Any?): Boolean {

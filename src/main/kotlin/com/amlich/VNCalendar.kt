@@ -76,9 +76,8 @@ class VNCalendar {
         }
         if (monthDiff > 0) {
             return date.plus(Period.of(0, monthDiff, 0))
-        } else {
-            return date.minus(Period.of(0, abs(monthDiff), 0))
         }
+        return date.minus(Period.of(0, abs(monthDiff), 0))
     }
 
     companion object {
